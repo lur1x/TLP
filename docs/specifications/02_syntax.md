@@ -4,6 +4,7 @@
 
 Программа представляет собой последовательность инструкций, выполняемых сверху вниз.  
 Каждая инструкция завершается точкой с запятой `;`. Могут быть пустые инструкции (просто `;`), но они игнорируются.
+Блок `{ ... }` сам является инструкцией и может содержать вложенные инструкции.
 
 ## Объявление переменных
 
@@ -19,14 +20,16 @@
 
 Выражения строятся с учётом приоритетов операций 
 
-| Приоритет | Операции    | Ассоциативность |
-| --------- | ----------- | --------------- |
-| 1         | `( )`       | –               |
-| 2         | унарный `-` | справа          |
-| 3         | `**`        | справа          |
-| 4         | `*` `/`     | слева           |
-| 5         | `+` `-`     | слева           |
-| 6         | `=`         | справа          |
+| Уровень | Операции                          | Ассоциативность |
+|---------|-----------------------------------|-----------------|
+| 1       | `( )`                             | –               |
+| 2       | унарные: `-`, `!`                 | справа          |
+| 3       | `**`                              | справа          |
+| 4       | `*`, `/`                          | слева           |
+| 5       | `+`, `-`                          | слева           |
+| 6       | `<`, `>`, `<=`, `>=`, `==`, `!=`  | слева           |
+| 7       | `&&`                              | слева           |
+| 8       | `||`                              | слева           |
 
 ## Грамматика языка в нотации EBNF
 
@@ -39,13 +42,23 @@ statement = assignment_statement
 | empty_statement 
 | value_declaration
 | input_statement
-| print_statement ;
+| print_statement 
+| if_statement
+| block ;
 
 (* Присваивание *)
 assignment_statement = identifier, "=", expression, ";" ;
 
 (* Пустая инструкция *)
 empty_statement = ";" ;
+
+(* Блок *)
+block = "{", { statement }, "}" ;
+
+(* Управлюящие конструкции *)
+
+if_statement =
+"if", "(", expression, ")", block, [ "else", block ; ] ;
 
 (* Ввод *)
 input_statement = "input", "(", identifier, ")" ";" ;
@@ -67,22 +80,27 @@ variable_declaration = "let", identifier, ":", type  "=", expression , ";" ;
 constant_declaration = "const", identifier, ":", type "=", expression, ";" ;
 
 (* Типы *)
-type = "int" | "float" | "str";
+type = "int" | "float" | "string" | "bool";
 
 (* Выражения *)
-expression = term_expression, { ("+" | "-"), term_expression } ;
+expression = logical_or ;
+logical_or = logical_and, { "||", logical_and } ;
+logical_and = comparison_expression, { "&&", comparison_expression } ;
+comparison_expression = additive_expression, [ ("<" | ">" | "<=" | ">=" | "==" | "!="), additive_expression ] ;
+additive_expression = term_expression, { ("+" | "-"), term_expression } ;
 term_expression = power_expression, { ("*" | "/"), power_expression } ;
 power_expression = unary_expression, [ "**", power_expression ] ;
-unary_expression = [ "-" ], primary_expression ;
+unary_expression = [ "-" | "!" ], primary_expression ;
 primary_expression = identifier
 | literal
 | "(" expression ")" ;
 
 (* Литералы *)
-literal = integer_literal | float_literal | string_literal;
+literal = integer_literal | float_literal | string_literal | boolean literal ;
 integer_literal = digit, { digit } ;
 float_literal = digit, { digit }, ".", digit, { digit } ;
-string_literal = '"', { любой символ }, '"' ж
+string_literal = '"', { любой символ UTF-16 }, '"' ж
+boolean_literal = "true" | "false" ;
 
 (* Идентификаторы *)
 identifier = ( letter | "_" ), { letter | digit | "_" } ;
