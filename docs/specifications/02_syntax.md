@@ -1,11 +1,5 @@
 # Синтаксис языка
 
-## Общая структура программы
-
-Программа представляет собой последовательность инструкций, выполняемых сверху вниз.  
-Каждая инструкция завершается точкой с запятой `;`. Могут быть пустые инструкции (просто `;`), но они игнорируются.
-Блок `{ ... }` сам является инструкцией и может содержать вложенные инструкции.
-
 ## Объявление переменных
 
 Язык поддерживает 2 вида переменных:
@@ -35,7 +29,17 @@
 
 ```
 (* Программа *)
-program = { statement } ;
+program = { top_level_declaration }, main_function ;
+
+top_level_declaration = value_declaration | function_declaration ;
+
+(* Объявление функции *)
+function_declaration = "func", identifier, ":", type, "(", [ parameter_list ], ")" block ;
+parameter_list = parameter, { ",", parameter } ;
+parameter= identifier, ":", type ;
+
+(* Главная функция *)
+main_function = "func", "main", ":", "void", "(", ")", block ;
 
 (* Инструкции *)
 statement = assignment_statement
@@ -44,7 +48,12 @@ statement = assignment_statement
 | input_statement
 | print_statement 
 | if_statement
-| block ;
+| block 
+| while_statement
+| break_statement
+| continue_statement
+| return_statement
+| function_call_statement ;
 
 (* Присваивание *)
 assignment_statement = identifier, "=", expression, ";" ;
@@ -59,6 +68,18 @@ block = "{", { statement }, "}" ;
 
 if_statement =
 "if", "(", expression, ")", block, [ "else", block ; ] ;
+
+while_statement = "while", "(", expression, ")", block ;
+
+break_statement = "break", ";" ;
+
+continue_statement = "continue", ";" ;
+
+return_statement = "return", [ expression ], ";" ;
+
+function_call_statement = function_call, ";" ;
+
+function_call   = identifier, "(", [ expression_list ], ")" ;
 
 (* Ввод *)
 input_statement = "input", "(", identifier, ")" ";" ;
@@ -80,7 +101,7 @@ variable_declaration = "let", identifier, ":", type  "=", expression , ";" ;
 constant_declaration = "const", identifier, ":", type "=", expression, ";" ;
 
 (* Типы *)
-type = "int" | "float" | "string" | "bool";
+type = "int" | "float" | "string" | "bool" | "void" ;
 
 (* Выражения *)
 expression = logical_or ;
@@ -93,7 +114,8 @@ power_expression = unary_expression, [ "**", power_expression ] ;
 unary_expression = [ "-" | "!" ], primary_expression ;
 primary_expression = identifier
 | literal
-| "(" expression ")" ;
+| "(" expression ")" 
+| function_call ;
 
 (* Литералы *)
 literal = integer_literal | float_literal | string_literal | boolean literal ;
