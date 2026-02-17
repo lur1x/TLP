@@ -17,7 +17,16 @@
 
 ## Выражения
 
-Выражения строятся из чисел, переменных и операторов 
+Выражения строятся с учётом приоритетов операций 
+
+| Приоритет | Операции    | Ассоциативность |
+| --------- | ----------- | --------------- |
+| 1         | `( )`       | –               |
+| 2         | унарный `-` | справа          |
+| 3         | `**`        | справа          |
+| 4         | `*` `/`     | слева           |
+| 5         | `+` `-`     | слева           |
+| 6         | `=`         | справа          |
 
 ## Грамматика языка в нотации EBNF
 
@@ -58,7 +67,7 @@ variable_declaration = "let", identifier, ":", type  "=", expression , ";" ;
 constant_declaration = "const", identifier, ":", type "=", expression, ";" ;
 
 (* Типы *)
-type = "int" | "float" ;
+type = "int" | "float" | "str";
 
 (* Выражения *)
 expression = term_expression, { ("+" | "-"), term_expression } ;
@@ -70,9 +79,10 @@ primary_expression = identifier
 | "(" expression ")" ;
 
 (* Литералы *)
-literal = integer_literal | float_literal;
+literal = integer_literal | float_literal | string_literal;
 integer_literal = digit, { digit } ;
 float_literal = digit, { digit }, ".", digit, { digit } ;
+string_literal = '"', { любой символ }, '"' ж
 
 (* Идентификаторы *)
 identifier = ( letter | "_" ), { letter | digit | "_" } ;
