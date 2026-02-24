@@ -1,24 +1,28 @@
-/// Поиск максимума из двух чисел
-let x: int;
-let y: int;
-
-print("Enter two integers:");
-input(x);
-input(y);
-
-if (x > y) 
+```
+# Поиск максимума из двух чисел
+func main:void ()
 {
-    print("Max is:", x);
-}
-else 
-{
-    if (x < y) 
+    let x:int;
+    let y:int;
+
+    print("Enter two integers:");
+    input(x);
+    input(y);
+
+    if (x > y) 
     {
-        print("Max is:", y);
-    } 
+        print("Max is:", x);
+    }
     else 
     {
-        print("Both are equal:", x);
+        if (x < y) 
+        {
+            print("Max is:", y);
+        } 
+        else 
+        {
+            print("Both are equal:", x);
+        }
     }
 }
-
+```
