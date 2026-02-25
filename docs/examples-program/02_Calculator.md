@@ -1,7 +1,7 @@
 ```
 # Калькулятор суммы, разности, произведения и частного
 
-func main: void() 
+func main:void() 
 {
     let a:float;
     let b:float;

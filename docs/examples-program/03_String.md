@@ -37,10 +37,8 @@ func main:void()
     
     /* Попытка преобразования введенной строки в число
     (если ввод не число, возникнет ошибка выполнения) */
-    let val:int = parseInt(s);
+    let val:int = toInt(s);
     print("Parsed input as int:", val);
 }
-```
 
-```
 ```

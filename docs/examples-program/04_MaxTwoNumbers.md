@@ -1,6 +1,7 @@
 ```
 # Поиск максимума из двух чисел
-func main:void ()
+
+func main:void()
 {
     let x:int;
     let y:int;
