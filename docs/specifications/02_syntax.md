@@ -119,7 +119,7 @@ unary_expression = {"-" | "!" }, primary_expression ;
 
 primary_expression = identifier
 | literal
-| "(" expression ")" 
+| "(", expression, ")" 
 | function_call ;
 
 ```

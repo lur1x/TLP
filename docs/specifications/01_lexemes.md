@@ -105,7 +105,7 @@ lexemes.md
 
 ```
 (* Литералы *)
-literal = integer_literal | float_literal | string_literal | boolean literal ;
+literal = integer_literal | float_literal | string_literal | boolean_literal ;
 integer_literal = digit, { digit } ;
 float_literal = digit, { digit }, ".", digit, { digit } ;
 string_literal = '"', { character - '"' | escape_sequence}, '"' ;
