@@ -3,20 +3,20 @@
 
 func main:void() 
 {
-    let a:float;
-    let b:float;
+    let a:int;
+    let b:int;
 
     /*
-    Вводим значения
+    Записываем значения
     */
     
-    input(a);
-    input(b);
+    a = 5;
+    b = 2;
     
-    let sum:float = a + b;
-    let diff:float = a - b;
-    let prod:float = a * b;
-    let quot:float = a / b;
+    let sum:int = a + b;
+    let diff:int = a - b;
+    let prod:int = a * b;
+    let quot:int = a / b;
     
     print(sum, diff, prod, quot);
 }

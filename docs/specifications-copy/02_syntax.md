@@ -2,12 +2,11 @@
 
 ## Объявление переменных
 
-Язык поддерживает 2 вида переменных:
+Язык на данном этапе разработки поддерживает 1 вида переменных:
 - изменяемые: объявляются с помощью ключевого слова `let`
-- неизменяемые или константы: объявляются с помщью ключего слова `const`
 
-## Ввод/вывод значений
-Ввод значений осуществляется с помощью инструкции `input()`, а вывод `print()` 
+## Вывод значений
+Вывод значений осуществляется с помощью инструкции `print()` 
 
 
 ## Выражения
@@ -36,7 +35,6 @@ main_function = "func", "main", ":", "void", "(", ")", block ;
 statement = assignment_statement
 | empty_statement 
 | value_declaration
-| input_statement
 | print_statement 
 | block ;
 
@@ -48,9 +46,6 @@ empty_statement = ";" ;
 
 (* Блок *)
 block = "{", { statement }, "}" ;
-
-(* Ввод *)
-input_statement = "input", "(", identifier, ")" ";" ;
 
 (* Вывод *)
 print_statement = "print", "(", [ expression_list ], ")" ";" ;
@@ -65,11 +60,8 @@ value_declaration = variable_declaration
 (* Объявление изменяемой переменной *)
 variable_declaration = "let", identifier, ":", type ["=", expression ], ";" ;
 
-(* Объявление неизменяемой переменной *)
-constant_declaration = "const", identifier, ":", type, "=", expression, ";" ;
-
 (* Типы *)
-type = "int" | "float" | "void" ;
+type = "int" | "void" ;
 
 (* Выражения *)
 expression = additive_expression ;
