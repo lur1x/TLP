@@ -3,6 +3,9 @@ using Ast.Declarations;
 
 namespace Ast.Expressions;
 
+/// <summary>
+/// Выражение доступа к переменной по имени.
+/// </summary>
 public sealed class VariableExpression : Expression
 {
   private AstAttribute<AbstractVariableDeclaration> variable;

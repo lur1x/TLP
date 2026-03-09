@@ -43,16 +43,6 @@ public enum TokenType
   Func,
 
   /// <summary>
-  /// Ключевое слово input
-  /// </summary>
-  Input,
-
-  /// <summary>
-  /// Ключевое слово print
-  /// </summary>
-  Print,
-
-  /// <summary>
   ///  Разделитель элементов ','
   /// </summary>
   Comma,

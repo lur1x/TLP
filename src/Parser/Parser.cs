@@ -118,10 +118,6 @@ public class Parser
         }
 
         return expr;
-      case TokenType.Input:
-
-      case TokenType.Print:
-
       default:
         throw new UnexpectedLexemeException(t.Type, t);
     }

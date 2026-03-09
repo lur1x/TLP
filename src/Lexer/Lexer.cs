@@ -10,8 +10,6 @@ public class Lexer(string text)
     { "float", TokenType.Float },
     { "void", TokenType.Void },
     { "func", TokenType.Func },
-    { "input", TokenType.Input },
-    { "print", TokenType.Print },
     { "main", TokenType.Main },
   };
 

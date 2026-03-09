@@ -7,16 +7,16 @@ public sealed class ConstantDeclaration : AbstractVariableDeclaration
 {
   private AstAttribute<AbstractTypeDeclaration?> declaredType;
 
-  public ConstantDeclaration(string name, string declaredTypeName, Expression value)
+  public ConstantDeclaration(string name, string declaredTypeName, Expression initialValue)
   : base(name)
   {
     DeclaredTypeName = declaredTypeName;
-    Value = value;
+    InitialValue = initialValue;
   }
 
   public string DeclaredTypeName { get; }
 
-  public Expression Value { get; }
+  public Expression InitialValue { get; }
 
   public AbstractTypeDeclaration? DeclaredType
   {
